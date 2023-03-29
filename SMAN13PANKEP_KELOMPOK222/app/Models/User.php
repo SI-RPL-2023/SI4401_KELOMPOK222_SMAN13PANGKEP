@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nomor_hp',
+        'avatar',
+        'status',
+        'role'
     ];
 
     /**
@@ -41,4 +45,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function avatar()
+    {
+        if($this->avatar)
+        {
+            return asset('storage/' . $this->avatar);
+        }else{
+            return asset('assets/img/avatar/avatar-1.png');
+        }
+    }
+
+    public function status()
+    {
+        if($this->status === 1)
+        {
+            return '<span class="badge badge-success">Aktif</span>';
+        }else{
+            return '<span class="badge badge-danger">Tidak Aktif</span>';
+        }
+    }
+
+    public function siswa()
+    {
+        return $this->hasOne(Siswa::class,'user_id','id');
+    }
 }
