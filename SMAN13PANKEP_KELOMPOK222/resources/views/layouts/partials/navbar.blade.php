@@ -143,6 +143,11 @@
                         @if(auth()->user()->role !=='guru')
                         <a class="dropdown-item" href="">Notification</a>
                         @endif
+                        <a class="dropdown-item" href="javascript:void(0)"
+                            onclick="document.getElementById('formLogout').submit()">Logout</a>
+                        <form action="{{ route('logout') }}" method="post" id="formLogout">
+                            @csrf
+                        </form>
                     </ul>
                 </li>
             </ul>
