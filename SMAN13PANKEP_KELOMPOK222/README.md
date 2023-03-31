@@ -1,11 +1,10 @@
-## Halo, kami dari kelompok 222 kelas SI4401
+## Halo, Kami Dari Kelompok 222 Kelas SI4401
 
 <p align="center"><img src="https://sman13pangkep.sch.id/resource/banner/1670316562Math_Google_Classroom_Banner_(20_%C3%97_8_cm).jpg" width="400" alt="Laravel Logo"></p>
 
 
 ## TUGAS BESAR REKAYASA PERANGKAT LUNAK
-Pada tugas besar mata kuliah rekayasa perangkat lunak kami membuat sebuah website bernama `SMAN 13 PANGKEP`. Website ini diciptakan dengan tujuan untuk memberikan solusi berupa otomatisasi proses bisnis yang ada di SMAN 13 PANGKEP seperti absensi, pembayaran asrama, dan penyebaran informasi sehingga dapat dilakukan pada website.
-website ini dibuat dengan menggunakan bahasa pemrograman PHP berbasis framework laravel 
+Pada tugas besar mata kuliah rekayasa perangkat lunak kami membuat sebuah website bernama `SMAN 13 PANGKEP`. Website ini diciptakan dengan tujuan untuk memberikan solusi berupa otomatisasi proses bisnis yang ada di SMAN 13 PANGKEP seperti absensi, pembayaran asrama, dan penyebaran informasi sehingga dapat dilakukan pada website. Website ini dibuat dengan menggunakan bahasa pemrograman PHP berbasis framework laravel 
 
 ## Our Team
 Pada pembuatan website ini kami memiliki 7 anggota tim dimana setiap anggota memiliki peran dan tanggung jawab masing-masing diantaranya:
