@@ -16,4 +16,5 @@ class AbsenController extends Controller
             'items' => $items
         ]);
     }
+
 }
