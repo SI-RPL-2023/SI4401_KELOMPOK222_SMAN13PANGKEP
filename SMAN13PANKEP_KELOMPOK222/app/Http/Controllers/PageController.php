@@ -83,6 +83,33 @@ class PageController extends Controller
         ]);
     }
 
+    public function list_absensi_store()
+    {
+        request()->validate([
+            'deskripsi' => ['required']
+        ]);
+        $jam = Carbon::now()->translatedFormat('H');
+        $hari = Carbon::now()->translatedFormat('l');
+
+        if ($hari === 'Sabtu' ) {
+            return redirect()->route('list-absensi.index')->with('error', 'Hari ini hari libur.');
+        }
+        if ($jam < 7 || $jam > 20) {
+            return redirect()->route('list-absensi.index')->with('error', 'Batas waktu absen sudah terlewat.');
+        }
+        $ready = Absen::where('siswa_id',auth()->user()->siswa->id)->whereDate('tanggal',Carbon::now()->translatedFormat('Y-m-d'));
+        if($ready->count() > 0)
+        {
+            return redirect()->route('list-absensi.index')->with('error', 'Anda telah melakukan absen.');
+        }
+        Absen::create([
+            'siswa_id' => auth()->user()->siswa->id,
+            'tanggal' => Carbon::now()->translatedFormat('Y-m-d H:i:s'),
+            'deskripsi' => request('deskripsi')
+        ]);
+        return redirect()->route('list-absensi.index')->with('success', 'Anda berhasil melakukan absen.');
+    }
+
 
     public function list_pembayaran_asrama()
     {
