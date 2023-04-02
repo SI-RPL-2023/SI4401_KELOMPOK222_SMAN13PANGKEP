@@ -16,5 +16,20 @@ class AbsenController extends Controller
             'items' => $items
         ]);
     }
+    public function create()
+    {
+        $siswas = Siswa::latest()->get();
+        return view('pages.absen.create',[
+            'title' => 'Tambah Absen',
+            'siswas' => $siswas
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
 }
