@@ -35,7 +35,6 @@
                         @foreach ($items as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->tanggal->translatedFormat('d-m-Y H:i:s') }}</td>
                                 <td>{{ $item->siswa->nama }}</td>
                                 <td>{{ $item->siswa->nis }}</td>
                                 <td>{{ $item->siswa->kelas }}</td>
