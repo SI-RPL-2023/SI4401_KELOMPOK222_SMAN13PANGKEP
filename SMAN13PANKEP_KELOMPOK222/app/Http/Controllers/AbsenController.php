@@ -49,5 +49,11 @@ class AbsenController extends Controller
 
         return redirect()->route('absensi.index')->with('success','Absen berhasil ditambahkan!');
     }
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Payment  $payment
+     * @return \Illuminate\Http\Response
+     */
 
 }
