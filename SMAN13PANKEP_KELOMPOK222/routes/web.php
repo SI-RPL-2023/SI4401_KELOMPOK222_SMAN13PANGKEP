@@ -48,6 +48,14 @@ Route::middleware('auth')->group(function(){
         Route::resource('pembayaran-siswa',PembayaranSiswaController::class)->except('show');
     });
 
+    // guru
+     Route::prefix('guru')->middleware('guru')->group(function(){
+        Route::resource('ekstrakulikuler',EkstrakulikulerController::class)->except('show');
+        Route::resource('aktivitas',AktivitasController::class)->except('show');
+        Route::resource('siswa',SiswaController::class)->except('show');
+        Route::resource('absensi',AbsenController::class)->except('show');
+    });
+
     //siswa
     Route::prefix('siswa')->group(function(){
         Route::get('/login',[LoginController::class,'siswa'])->name('login-siswa');
