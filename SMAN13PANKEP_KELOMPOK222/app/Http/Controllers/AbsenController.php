@@ -16,5 +16,38 @@ class AbsenController extends Controller
             'items' => $items
         ]);
     }
+    public function create()
+    {
+        $siswas = Siswa::latest()->get();
+        return view('pages.absen.create',[
+            'title' => 'Tambah Absen',
+            'siswas' => $siswas
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'siswa_id' => ['required'],
+            'tanggal' => ['required'],
+            'deskripsi' => ['required']
+        ]);
+        $data = $request->all();
+        $ready = Absen::where('siswa_id',request('siswa_id'))->whereDate('tanggal',request('tanggal'));
+        if($ready->count() < 1)
+        {
+            Absen::create($data);
+        }else{
+            return redirect()->route('absensi.index')->with('error','Siswa sudah melakukan absen di tanggal tersebut!');
+        }
+
+        return redirect()->route('absensi.index')->with('success','Absen berhasil ditambahkan!');
+    }
 
 }
