@@ -76,6 +76,12 @@ class PageController extends Controller
         ]);
     }
 
+    public function list_absensi_create()
+    {
+        return view('pages.absen.list-absensi-create', [
+            'title' => 'Form Absensi',
+        ]);
+    }
 
 
     public function list_pembayaran_asrama()
