@@ -26,6 +26,7 @@
                         @foreach ($items as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->tanggal}}</td>
                                 <td>{{ $item->siswa->nama }}</td>
                                 <td>{{ $item->siswa->nis }}</td>
                                 <td>{{ $item->siswa->kelas }}</td>
