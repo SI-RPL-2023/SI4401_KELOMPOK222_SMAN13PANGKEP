@@ -49,5 +49,38 @@ class AbsenController extends Controller
 
         return redirect()->route('absensi.index')->with('success','Absen berhasil ditambahkan!');
     }
+    public function edit($id)
+    {
+        $item = Absen::findOrFail($id);
+        return view('pages.absen.edit',[
+            'title' => 'Edit Absen ' . $item->nama,
+            'item' => $item
+        ]);
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Payment  $payment
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request,$id)
+    {
+        $request->validate([
+            'deskripsi' => ['required'],
+        ]);
+        $data = $request->only('deskripsi');
+        $item = Absen::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->route('absensi.index')->with('success','Absen berhasil diupdate!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Payment  $payment
+     * @return \Illuminate\Http\Response
+     */
 }
