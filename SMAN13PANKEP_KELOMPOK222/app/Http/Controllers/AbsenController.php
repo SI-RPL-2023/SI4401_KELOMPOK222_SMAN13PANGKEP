@@ -83,4 +83,10 @@ class AbsenController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
+    public function destroy($id)
+    {
+        $item = Absen::findOrFail($id);
+        $item->delete();
+        return redirect()->route('absensi.index')->with('success','Absen berhasil dihapus!');
+    }
 }
