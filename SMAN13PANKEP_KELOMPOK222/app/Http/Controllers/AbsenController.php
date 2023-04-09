@@ -55,4 +55,5 @@ class AbsenController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
+
 }
