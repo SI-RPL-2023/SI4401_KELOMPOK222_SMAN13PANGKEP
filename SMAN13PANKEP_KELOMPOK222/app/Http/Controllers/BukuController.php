@@ -23,4 +23,46 @@ class BukuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function create()
+    {
+        return view('pages.buku.create', [
+            'title' => 'Tambah buku'
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        request()->validate([
+            'kode' => ['required', 'unique:bukus,kode'],
+            'judul' => ['required'],
+            'jenis' => ['required'],
+            'subjek' => ['required'],
+            'deskripsi' => ['required'],
+            'gambar' => ['required', 'image']
+        ]);
+
+        $data = request()->all();
+        $data['gambar'] = request()->file('gambar')->store('buku', 'public');
+        Buku::create($data);
+
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
 }
