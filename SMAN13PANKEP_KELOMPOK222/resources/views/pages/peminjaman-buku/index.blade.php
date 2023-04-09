@@ -31,10 +31,10 @@
                         <td>{{ $item->siswa->kelas }}</td>
                         <td>{{ $item->buku->kode }}</td>
                         <td>{{ $item->buku->judul }}</td>
-                        <td>{{ $item->start_date->translatedFormat('d-m-Y') }}</td>
+                        <td>{{ $item->start_date}}</td>
                         <td>
                             @if ($item->return_date)
-                            {{ $item->return_date->translatedFormat('d-m-Y') }}
+                            {{ $item->return_date}}
                             @else
                             Belum Dikembalikan
                             @endif
