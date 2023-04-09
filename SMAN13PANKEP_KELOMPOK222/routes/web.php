@@ -48,6 +48,12 @@ Route::middleware('auth')->group(function(){
         Route::resource('pembayaran-siswa',PembayaranSiswaController::class)->except('show');
     });
 
+    // pustakawan
+    Route::prefix('pustakawan')->middleware('pustakawan')->group(function(){
+        Route::resource('buku',BukuController::class)->except('show');
+        Route::resource('peminjaman-buku',PeminjamanBukuController::class)->except('show','create','store');
+    });    
+
     // guru
      Route::prefix('guru')->middleware('guru')->group(function(){
         Route::resource('ekstrakulikuler',EkstrakulikulerController::class)->except('show');
