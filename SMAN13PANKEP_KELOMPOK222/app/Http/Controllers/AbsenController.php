@@ -73,6 +73,12 @@ class AbsenController extends Controller
         $data = $request->only('deskripsi');
         $item = Absen::findOrFail($id);
         $item->update($data);
+        /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Payment  $payment
+     * @return \Illuminate\Http\Response
+     */
 
         return redirect()->route('absensi.index')->with('success','Absen berhasil diupdate!');
     }
