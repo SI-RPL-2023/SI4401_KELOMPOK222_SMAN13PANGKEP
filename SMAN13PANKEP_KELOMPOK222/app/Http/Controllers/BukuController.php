@@ -65,4 +65,64 @@ class BukuController extends Controller
         //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $item = Buku::findOrFail($id);
+        return view('pages.buku.edit', [
+            'title' => 'Edit buku',
+            'item' => $item
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        request()->validate([
+            'kode' => ['required', Rule::unique('bukus', 'kode')->ignore($id)],
+            'judul' => ['required'],
+            'jenis' => ['required'],
+            'subjek' => ['required'],
+            'deskripsi' => ['required'],
+            'gambar' => ['image']
+        ]);
+
+        $data = request()->all();
+        $item = Buku::findOrFail($id);
+        if (request()->gambar) {
+            Storage::disk('public')->delete($item->gambar);
+            $data['gambar'] = request()->file('gambar')->store('buku', 'public');
+        } else {
+            $data['gambar'] = $item->gambar;
+        }
+        $item->update($data);
+
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil diupdate.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $item = Buku::findOrFail($id);
+        Storage::disk('public')->delete($item->gambar);
+        $item->delete();
+
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
+    }
 }
