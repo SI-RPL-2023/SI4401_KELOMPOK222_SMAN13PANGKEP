@@ -56,6 +56,14 @@ class PageController extends Controller
         ]);
     }
 
+    public function list_buku_detail($id)
+    {
+        $item = Buku::findOrFail($id);
+        return view('pages.buku.list-show', [
+            'title' => 'Buku',
+            'item' => $item
+        ]);
+    }
 
     public function list_peminjaman_buku()
     {
@@ -64,6 +72,44 @@ class PageController extends Controller
             'title' => 'Peminjaman Buku',
             'items' => $items
         ]);
+    }
+
+    public function peminjaman_buku_create($id)
+    {
+        $item = Buku::findOrFail($id);
+        return view('pages.peminjaman-buku.create', [
+            'title' => 'Peminjaman Buku',
+            'item' => $item
+        ]);
+    }
+    public function peminjaman_buku_store($buku_id)
+    {
+        request()->validate([
+            'start_date' => ['required'],
+            'return_date' => ['required']
+        ]);
+
+        $pem = PeminjamanBuku::create([
+            'siswa_id' => auth()->user()->siswa->id,
+            'buku_id' => $buku_id,
+            'start_date' => request('start_date'),
+            'return_date' => request('return_date')
+        ]);
+
+        // send notif
+        $pustakawan = User::where('role', 'pustakawan')->get();
+        if ($pustakawan->count() > 0) {
+            foreach ($pustakawan as $pus) {
+                Notifikasi::create([
+                    'pengirim_id' => auth()->id(),
+                    'judul' => auth()->user()->name . ' telah membuat permintaan meminjam buku dengan judul ' . '"' . $pem->buku->judul . '"' . ' Silahkan cek dan segeralah approve',
+                    'penerima_id' => $pus->id,
+                    'status' => 0
+                ]);
+            }
+        }
+
+        return redirect()->route('list-peminjaman-buku.index')->with('success', 'Anda berhasil meminjam buku.');
     }
 
 
