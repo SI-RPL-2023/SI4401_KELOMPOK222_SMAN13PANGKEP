@@ -40,7 +40,14 @@ class PageController extends Controller
             'q' => request('q')
         ]);
     }
-
+    public function list_ekstrakulikuler_detail($id)
+    {
+        $item = Ekstrakulikuler::findOrFail($id);
+        return view('pages.ekstrakulikuler.list-show', [
+            'title' => 'Ekstrakulikuler',
+            'item' => $item
+        ]);
+    }
 
     public function list_buku()
     {
