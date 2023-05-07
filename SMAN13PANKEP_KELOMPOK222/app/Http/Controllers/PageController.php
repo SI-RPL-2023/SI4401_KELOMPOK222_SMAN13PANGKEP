@@ -25,7 +25,16 @@ class PageController extends Controller
             'items' => $items
         ]);
     }
-
+    
+    public function list_aktivitas_detail($id)
+    {
+        $item = Aktivitas::findOrFail($id);
+        return view('pages.aktivitas.list-show', [
+            'title' => 'Aktifitas Detail',
+            'item' => $item
+        ]);
+    }
+    
     public function list_ekstrakulikuler()
     {
         if (request('q')) {
@@ -40,15 +49,15 @@ class PageController extends Controller
             'q' => request('q')
         ]);
     }
-    public function list_aktivitas_detail($id)
+    
+    public function list_ekstrakulikuler_detail($id)
     {
-        $item = Aktivitas::findOrFail($id);
-        return view('pages.aktivitas.list-show', [
-            'title' => 'Aktifitas Detail',
+        $item = Ekstrakulikuler::findOrFail($id);
+        return view('pages.ekstrakulikuler.list-show', [
+            'title' => 'Ekstrakulikuler',
             'item' => $item
-        ]);
-    }
-
+        ]);
+    }
 
     public function list_buku()
     {
