@@ -6,11 +6,14 @@
                 <font face="San-serif" size="5"><b>Daftar Buku</b></font>
                 <form action="{{ route('list-buku.index') }}" method="get">
                     <div class="form-group row">
-                       <div class="col-md-9">
+                       <div class="col-md-4">
+                        <a class="btn btn-primary" href="{{ route('list-peminjaman-buku.index') }}" style="width:100%">Peminjaman</a>
+                       </div>
+                       <div class="col-md-5">
                         <input type="text" placeholder="Cari Buku Kesukaan Anda..." class="form-control" name="q"  value="{{ $q ?? '' }}">
                        </div>
                        <div class="col-md-3">
-                        <button class="btn btn-secondary px-4">Cari</button>
+                        <button class="btn btn-secondary">Cari</button>
                        </div>
                     </div>
                 </form>

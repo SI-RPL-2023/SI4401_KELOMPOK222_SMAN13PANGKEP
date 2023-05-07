@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('username');
             $table->string('nomor_hp')->nullable();
-            $table->enum('role',['admin','guru','siswa','bendaharawan','pustakawan']);
+            $table->enum('role',['admin','guru','siswa','bendaharawan','pustakawan','umum']);
         });
     }
 

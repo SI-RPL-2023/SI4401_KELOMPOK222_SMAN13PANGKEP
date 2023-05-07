@@ -24,7 +24,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="text" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ $item->tanggal->translatedFormat('d-m-Y H:i:s') }}" readonly>
+                            <input type="text" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ $item->tanggal}}" readonly>
                             @error('tanggal')
                                 <div class="invalid-feedback">
                                     {{ $message }}

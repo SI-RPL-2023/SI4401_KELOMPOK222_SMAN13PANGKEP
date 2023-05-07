@@ -48,7 +48,7 @@ class BukuController extends Controller
         ]);
 
         $data = request()->all();
-        $data['gambar'] = request()->file('gambar')->store('buku', 'public');
+        $data['gambar'] = request()->file('gambar')->store('book', 'public');
         Buku::create($data);
 
         return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan.');
@@ -64,6 +64,13 @@ class BukuController extends Controller
     {
         //
     }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
 
     /**
      * Show the form for editing the specified resource.
