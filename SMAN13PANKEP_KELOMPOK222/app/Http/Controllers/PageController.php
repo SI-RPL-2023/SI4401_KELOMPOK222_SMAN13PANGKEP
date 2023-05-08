@@ -32,8 +32,8 @@ class PageController extends Controller
         return view('pages.aktivitas.list-show', [
             'title' => 'Aktifitas Detail',
             'item' => $item
-        ]);
-    }
+        ]);
+    }
     
     public function list_ekstrakulikuler()
     {
