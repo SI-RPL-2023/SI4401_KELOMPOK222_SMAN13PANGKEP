@@ -58,13 +58,13 @@
                 <div class="col-6">
                     <div class="input-wrap">
                         <label for="start_date" class="form-label">Start Date</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" disabled value="{{ $item->start_date->translatedFormat('Y-m-d') }}">
+                        <input type="date" class="form-control" id="start_date" name="start_date" disabled value="{{ $item->start_date }}">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="input-wrap">
                         <label for="return_date" class="form-label">Return Date</label>
-                        <input type="date" class="form-control" id="return_date" value="{{ $item->return_date->translatedFormat('Y-m-d') }}" name="return_date">
+                        <input type="date" class="form-control" id="return_date" value="{{ $item->return_date }}" name="return_date">
                     </div>
                 </div>
             </div>
