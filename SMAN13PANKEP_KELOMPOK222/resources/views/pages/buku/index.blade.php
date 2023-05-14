@@ -27,7 +27,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <img src="{{ asset('book/'.$item->gambar) }}" alt="">
+                                    <img src="{{ $item->gambar() }}" class="img-fluid"
+                                        style="max-height: 60px" alt="">
                                 </td>
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->judul }}</td>
