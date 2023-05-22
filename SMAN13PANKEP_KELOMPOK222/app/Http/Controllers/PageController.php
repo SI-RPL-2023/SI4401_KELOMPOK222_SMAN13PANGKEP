@@ -166,4 +166,37 @@ class PageController extends Controller
             'metode_pembayaran' => MetodePembayaran::get()
         ]);
     }
+
+    public function list_pembayaran_siswa_store()
+    {
+
+        request()->validate([
+            'pembayaran_asrama_id' => ['required'],
+            'bukti' => ['required', 'image'],
+            'nominal' => ['required']
+        ]);
+
+        $ps = PembayaranSiswa::create([
+            'pembayaran_asrama_id' => request('pembayaran_asrama_id'),
+            'siswa_id' => auth()->user()->siswa->id,
+            'nominal' => request('nominal'),
+            'metode_pembayaran_id' => request('metode_pembayaran_id'),
+            'bukti' => request()->file('bukti')->store('buktu-pembayaran', 'public')
+        ]);
+
+        // send notif
+        $bendaharawan = User::where('role', 'bendaharawan')->get();
+        if ($bendaharawan->count() > 0) {
+            foreach ($bendaharawan as $bend) {
+                Notifikasi::create([
+                    'pengirim_id' => auth()->id(),
+                    'judul' => auth()->user()->name . ' telah melakukan pembayaran asrama pada tahun ajaran ' . $ps->asrama->tahun_ajaran . ' semester ' . $ps->asrama->semester . ' sebesar Rp. ' . number_format($ps->nominal) . ' Silahkan cek dan segeralah approve',
+                    'penerima_id' => $bend->id,
+                    'status' => 0
+                ]);
+            }
+        }
+
+        return redirect()->route('list-pembayaran-asrama.index')->with('success', 'Bukti Pembayaran berhasil di upload');
+    }
 }
