@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="date" class="form-label">Date</label>
-                        <input type="text" class="form-control" id="date" name="date" value="{{ $item->tanggal->translatedFormat('d-m-Y') }}" disabled>
+                        <input type="text" class="form-control" id="date" name="date" value="{{ $item->tanggal }}" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="achievement" class="form-label">Details</label>

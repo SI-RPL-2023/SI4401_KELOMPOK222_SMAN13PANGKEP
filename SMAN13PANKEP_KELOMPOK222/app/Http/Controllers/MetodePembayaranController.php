@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PembayaranAsrama;
+use App\Models\MetodePembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class PembayaranAsramaController extends Controller
+class MetodePembayaranController extends Controller
 {
     public function index()
     {
-        $items = PembayaranAsrama::latest()->get();
-        return view('pages.pembayaran-asrama.index',[
-            'title' => 'Data Pembayaran Asrama',
+        $items = MetodePembayaran::orderBy('nama','asc')->get();
+        return view('pages.metode-pembayaran.index',[
+            'title' => 'Data Metode Pembayaran',
             'items' => $items
         ]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -22,8 +24,8 @@ class PembayaranAsramaController extends Controller
      */
     public function create()
     {
-        return view('pages.pembayaran-asrama.create',[
-            'title' => 'Tambah Pembayaran Asrama',
+        return view('pages.metode-pembayaran.create',[
+            'title' => 'Tambah Metode Pembayaran',
         ]);
     }
 
@@ -36,15 +38,15 @@ class PembayaranAsramaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tahun_ajaran' => ['required'],
-            'semester' => ['required','numeric'],
-            'status' => ['required']
+            'nama' => ['required'],
+            'nomor' => ['required','numeric'],
+            'deskripsi' => ['required']
         ]);
         $data = $request->all();
 
-        PembayaranAsrama::create($data);
+        MetodePembayaran::create($data);
 
-        return redirect()->route('pembayaran-asrama.index')->with('success','Pembayaran Asrama berhasil ditambahkan!');
+        return redirect()->route('metode-pembayaran.index')->with('success','Metode Pembayaran berhasil ditambahkan!');
     }
 
 
@@ -56,9 +58,9 @@ class PembayaranAsramaController extends Controller
      */
     public function edit($id)
     {
-        $item = PembayaranAsrama::findOrFail($id);
-        return view('pages.pembayaran-asrama.edit',[
-            'title' => 'Edit Pembayaran Asrama ' . $item->nama,
+        $item = MetodePembayaran::findOrFail($id);
+        return view('pages.metode-pembayaran.edit',[
+            'title' => 'Edit Metode Pembayaran ' . $item->nama,
             'item' => $item
         ]);
     }
@@ -73,16 +75,15 @@ class PembayaranAsramaController extends Controller
     public function update(Request $request,$id)
     {
         $request->validate([
-            'tahun_ajaran' => ['required'],
-            'nominal' => ['required','numeric'],
-            'status' => ['required'],
-            'semester' => ['required','numeric']
+            'nama' => ['required'],
+            'nomor' => ['required','numeric'],
+            'deskripsi' => ['required']
         ]);
         $data = $request->all();
-        $item = PembayaranAsrama::findOrFail($id);
+        $item = MetodePembayaran::findOrFail($id);
        $item->update($data);
 
-        return redirect()->route('pembayaran-asrama.index')->with('success','Pembayaran Asrama berhasil diupdate!');
+        return redirect()->route('metode-pembayaran.index')->with('success','Metode Pembayaran berhasil diupdate!');
     }
 
     /**
@@ -93,9 +94,8 @@ class PembayaranAsramaController extends Controller
      */
     public function destroy($id)
     {
-        $item = PembayaranAsrama::findOrFail($id);
+        $item = MetodePembayaran::findOrFail($id);
         $item->delete();
-        return redirect()->route('pembayaran-asrama.index')->with('success','Pembayaran Asrama berhasil dihapus!');
+        return redirect()->route('metode-pembayaran.index')->with('success','Metode Pembayaran berhasil dihapus!');
     }
 }
-
