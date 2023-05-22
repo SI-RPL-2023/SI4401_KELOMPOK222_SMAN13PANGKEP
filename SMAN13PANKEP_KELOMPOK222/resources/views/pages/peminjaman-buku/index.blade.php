@@ -45,9 +45,6 @@
                             <form action="{{ route('peminjaman-buku.destroy', $item->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('delete')
-                                <button
-                                    class="btn btn-danger"><i class="fas fa-trash"></i>
-                                    Hapus</button>
                             </form>
                         </td>
                     </tr>

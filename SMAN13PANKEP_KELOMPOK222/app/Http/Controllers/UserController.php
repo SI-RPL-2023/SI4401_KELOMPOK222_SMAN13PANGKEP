@@ -16,6 +16,17 @@ class UserController extends Controller
         return view('pages.user.edit',[
             'title' => 'Edit User',
             'item' => $item
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $items = User::orderBy('name','ASC')->get();
+        return view('pages.user.index',[
+            'title' => 'Data User',
+            'items' => $items
         ]);
     }
 
@@ -50,4 +61,8 @@ class UserController extends Controller
         $item->update($data);
         return redirect()->route('users.index')->with('success','User berhasil diupdate.');
     }
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 }
