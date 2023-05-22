@@ -10,72 +10,6 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $items = User::orderBy('name','ASC')->get();
-        return view('pages.user.index',[
-            'title' => 'Data User',
-            'items' => $items
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pages.user.create',[
-            'title' => 'Tambah User'
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        request()->validate([
-            'name' => ['required'],
-            'email' => ['required','email','unique:users,email'],
-            'password' => ['required','min:5'],
-            'nomor_hp' => ['required'],
-            'role' => ['required']
-        ]);
-
-        $data = request()->all();
-
-        $data['password'] = bcrypt(request('password'));
-        User::create($data);
-        return redirect()->route('users.index')->with('success','User berhasil ditambahkan.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $item = User::findOrFail($id);
@@ -115,22 +49,5 @@ class UserController extends Controller
 
         $item->update($data);
         return redirect()->route('users.index')->with('success','User berhasil diupdate.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $item = User::findOrFail($id);
-        if($item->avatar)
-        {
-            Storage::disk('public')->delete($item->avatar);
-        }
-        $item->delete();
-        return redirect()->route('users.index')->with('success','User berhasil dihapus.');
     }
 }
