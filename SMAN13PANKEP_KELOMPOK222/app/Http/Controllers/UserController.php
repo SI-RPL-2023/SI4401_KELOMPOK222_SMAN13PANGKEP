@@ -124,4 +124,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function destroy($id)
+    {
+        $item = User::findOrFail($id);
+        if($item->avatar)
+        {
+            Storage::disk('public')->delete($item->avatar);
+        }
+        $item->delete();
+        return redirect()->route('users.index')->with('success','User berhasil dihapus.');
+    }
 }
