@@ -24,7 +24,7 @@ class UserController extends Controller
         ]);
     }
 
-    /**
+     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -36,12 +36,13 @@ class UserController extends Controller
         ]);
     }
 
-    /**
+     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         request()->validate([
@@ -59,7 +60,7 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success','User berhasil ditambahkan.');
     }
 
-    /**
+     /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -70,12 +71,13 @@ class UserController extends Controller
         //
     }
 
-    /**
+     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         $item = User::findOrFail($id);
@@ -116,8 +118,7 @@ class UserController extends Controller
         $item->update($data);
         return redirect()->route('users.index')->with('success','User berhasil diupdate.');
     }
-
-    /**
+     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
