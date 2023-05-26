@@ -26,5 +26,15 @@ class DashboardController extends Controller
         if (auth()->user()->role === 'bendaharawan') {
             return redirect()->route('pembayaran-siswa.index');
         }
+        if (auth()->user()->role === 'admin') {
+            $count = [
+                'ekstrakulikuler' => Ekstrakulikuler::count(),
+                'aktivitas' => Aktivitas::count()
+            ];
+            return view('pages.dashboard', [
+                'title' => 'Dashboard',
+                'count' => $count
+            ]);
+        }
     }
 }
