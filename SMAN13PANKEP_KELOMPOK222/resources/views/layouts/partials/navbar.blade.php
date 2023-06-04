@@ -103,6 +103,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.index') }}" style="font-family:San-serif">USER</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('create')}}" style="font-family:San-serif">Tampilan</a>
+                    </li>
                 @endif
 
 
