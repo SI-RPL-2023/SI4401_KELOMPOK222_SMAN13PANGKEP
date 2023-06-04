@@ -25,7 +25,16 @@ class PageController extends Controller
             'items' => $items
         ]);
     }
-
+    
+    public function list_aktivitas_detail($id)
+    {
+        $item = Aktivitas::findOrFail($id);
+        return view('pages.aktivitas.list-show', [
+            'title' => 'Aktifitas Detail',
+            'item' => $item
+        ]);
+    }
+    
     public function list_ekstrakulikuler()
     {
         if (request('q')) {
@@ -40,7 +49,15 @@ class PageController extends Controller
             'q' => request('q')
         ]);
     }
-
+    
+    public function list_ekstrakulikuler_detail($id)
+    {
+        $item = Ekstrakulikuler::findOrFail($id);
+        return view('pages.ekstrakulikuler.list-show', [
+            'title' => 'Ekstrakulikuler',
+            'item' => $item
+        ]);
+    }
 
     public function list_buku()
     {
@@ -165,5 +182,38 @@ class PageController extends Controller
             'items' => $items,
             'metode_pembayaran' => MetodePembayaran::get()
         ]);
+    }
+
+    public function list_pembayaran_siswa_store()
+    {
+
+        request()->validate([
+            'pembayaran_asrama_id' => ['required'],
+            'bukti' => ['required', 'image'],
+            'nominal' => ['required']
+        ]);
+
+        $ps = PembayaranSiswa::create([
+            'pembayaran_asrama_id' => request('pembayaran_asrama_id'),
+            'siswa_id' => auth()->user()->siswa->id,
+            'nominal' => request('nominal'),
+            'metode_pembayaran_id' => request('metode_pembayaran_id'),
+            'bukti' => request()->file('bukti')->store('buktu-pembayaran', 'public')
+        ]);
+
+        // send notif
+        $bendaharawan = User::where('role', 'bendaharawan')->get();
+        if ($bendaharawan->count() > 0) {
+            foreach ($bendaharawan as $bend) {
+                Notifikasi::create([
+                    'pengirim_id' => auth()->id(),
+                    'judul' => auth()->user()->name . ' telah melakukan pembayaran asrama pada tahun ajaran ' . $ps->asrama->tahun_ajaran . ' semester ' . $ps->asrama->semester . ' sebesar Rp. ' . number_format($ps->nominal) . ' Silahkan cek dan segeralah approve',
+                    'penerima_id' => $bend->id,
+                    'status' => 0
+                ]);
+            }
+        }
+
+        return redirect()->route('list-pembayaran-asrama.index')->with('success', 'Bukti Pembayaran berhasil di upload');
     }
 }

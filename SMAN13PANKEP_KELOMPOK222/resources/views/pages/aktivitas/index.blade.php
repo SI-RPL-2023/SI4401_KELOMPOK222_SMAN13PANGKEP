@@ -28,7 +28,7 @@
                                 <td>
                                     <img src="{{ $item->gambar() }}" alt="" class="img-fluid" style="max-height: 80px">
                                 </td>
-                                <td>{{ $item->tanggal->translatedFormat('l, d F Y') }}</td>
+                                <td>{{ $item->tanggal }}</td>
                                 <td>{{ $item->judul }}</td>
                                 <td>{{ $item->kontak_person }}</td>
                                 <td>
