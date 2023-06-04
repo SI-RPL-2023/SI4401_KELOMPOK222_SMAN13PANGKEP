@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/profile',[ProfileController::class,'update'])->name('profile.update');
     Route::get('/change-password',[ChangePasswordController::class,'index'])->name('change-password.index');
     Route::post('/change-password',[ChangePasswordController::class,'update'])->name('change-password.update');
+    Route::get('/create',[TampilanController::class,'create'])->name('create');
 
     Route::resource('users',UserController::class)->except('show');
     
