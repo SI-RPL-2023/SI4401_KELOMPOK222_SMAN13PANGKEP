@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\AktivitasController;
 use App\Http\Controllers\AuthController;
@@ -16,19 +17,20 @@ use App\Http\Controllers\PeminjamanBukuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImageController;
 use App\Models\PembayaranSiswa;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Auth::routes(['register' => true]);
 Route::middleware('auth')->group(function(){
@@ -37,10 +39,24 @@ Route::middleware('auth')->group(function(){
     Route::post('/profile',[ProfileController::class,'update'])->name('profile.update');
     Route::get('/change-password',[ChangePasswordController::class,'index'])->name('change-password.index');
     Route::post('/change-password',[ChangePasswordController::class,'update'])->name('change-password.update');
+    Route::get('cetak-dashboard',[DashboardController::class,'cetakdashboard'])->name('cetak-dashboard');
 
     Route::resource('users',UserController::class)->except('show');
-    
-    //bendahara
+
+    // guru
+     Route::prefix('guru')->middleware('guru')->group(function(){
+        Route::resource('ekstrakulikuler',EkstrakulikulerController::class)->except('show');
+        Route::resource('aktivitas',AktivitasController::class)->except('show');
+        Route::resource('siswa',SiswaController::class)->except('show');
+        Route::resource('absensi',AbsenController::class)->except('show');
+        Route::get('cari-absensi',[AbsenController::class,'index'])->name('cari-absensi');
+        Route::get('cari-aktivitas',[AktivitasController::class,'index'])->name('cari-aktivitas');
+        Route::get('cari-siswa',[SiswaController::class,'index'])->name('cari-siswa');
+        Route::get('cari-ekstrakurikuler',[EkstrakulikulerController::class,'index'])->name('cari-ekstrakurikuler');
+        Route::get('cetak-data',[BukuController::class,'cetakdata'])->name('cetak-data');
+    });
+
+    // bendaharawan
     Route::prefix('bendaharawan')->middleware('bendaharawan')->group(function(){
         Route::resource('metode-pembayaran',MetodePembayaranController::class)->except('show');
         Route::resource('pembayaran-asrama',PembayaranAsramaController::class)->except('show');
@@ -52,21 +68,16 @@ Route::middleware('auth')->group(function(){
     Route::prefix('pustakawan')->middleware('pustakawan')->group(function(){
         Route::resource('buku',BukuController::class)->except('show');
         Route::resource('peminjaman-buku',PeminjamanBukuController::class)->except('show','create','store');
-    });    
-
-    // guru
-     Route::prefix('guru')->middleware('guru')->group(function(){
-        Route::resource('ekstrakulikuler',EkstrakulikulerController::class)->except('show');
-        Route::resource('aktivitas',AktivitasController::class)->except('show');
-        Route::resource('siswa',SiswaController::class)->except('show');
-        Route::resource('absensi',AbsenController::class)->except('show');
     });
 
-    //siswa
+
+    // siswa
     Route::prefix('siswa')->group(function(){
         Route::get('/login',[LoginController::class,'siswa'])->name('login-siswa');
         Route::get('list-aktivitas',[PageController::class,'list_aktivitas'])->name('list-aktivitas.index');
+        Route::get('cari-aktivitas',[PageController::class,'list_aktivitas'])->name('cari-aktivitas');
         Route::get('list-aktivitas/{id}',[PageController::class,'list_aktivitas_detail'])->name('list-aktivitas.show');
+        Route::get('cari-ekstrakulikuler',[PageController::class,'list_ekstrakulikuler'])->name('cari-ekstrakulikuler');
         Route::get('list-ekstrakulikuler',[PageController::class,'list_ekstrakulikuler'])->name('list-ekstrakulikuler.index');
         Route::get('list-ekstrakulikuler/{id}',[PageController::class,'list_ekstrakulikuler_detail'])->name('list-ekstrakulikuler.show');
         Route::get('list-buku',[PageController::class,'list_buku'])->name('list-buku.index');
@@ -85,6 +96,8 @@ Route::middleware('auth')->group(function(){
         Route::post('list-pembayaran-siswa',[PageController::class,'list_pembayaran_siswa_store'])->name('list-pembayaran-siswa.store');
     });
 
+    Route::get('notifikasi',[NotifikasiController::class,'index'])->name('notifikasi.index');
+    Route::post('notifikasi/update',[NotifikasiController::class,'update'])->name('notifikasi.update');
 });
 
 Route::post('login-proses',[AuthController::class,'proses_login'])->name('login-proses');
