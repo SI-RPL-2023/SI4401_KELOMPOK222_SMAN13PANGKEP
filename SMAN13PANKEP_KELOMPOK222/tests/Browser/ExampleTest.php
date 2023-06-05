@@ -16,17 +16,13 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('http://127.0.0.1:8000/')
-            ->assertSee('Welcome, Pengguna.')
-                    ->type('email', 'anugrahbagas45@gmail.com')
-                    ->type('password', '12345')
+                    ->assertSee('Welcome, Pengguna.')
+                    ->click('.dropdown')
+                    ->clickLink('Admin')
+                    ->type('email', 'admin@gmail.com')
+                    ->type('password', 'admin')
                     ->press('Login')
-                    ->assertSee('AnugrahBagasK')
-                    ->click('.dropdown') // Klik tombol dropdown
-                    ->clickLink('Profile')
-                    ->type('name', 'Ari Dwi')
-                    ->type('nis', '1202204133')
-                    ->press('Update');
-                          
+                    ->press('Cetak Data');
 
         });
     }
