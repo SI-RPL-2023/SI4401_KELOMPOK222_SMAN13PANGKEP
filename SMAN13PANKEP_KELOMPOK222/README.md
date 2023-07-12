@@ -10,7 +10,7 @@ Pada tugas besar mata kuliah rekayasa perangkat lunak kami membuat sebuah websit
 Pada pembuatan website ini kami memiliki 7 anggota tim dimana setiap anggota memiliki peran dan tanggung jawab masing-masing diantaranya:
 - [Anugrah Bagas Kurniawan](https://www.linkedin.com/in/anugrah-bagas-kurniawan-8a51ab268/) / 1202204163 / Project Manager
 - [Amanda Aurellie Utami](https://www.linkedin.com/in/amandaurellie/) / 1202201119 / Analyst
-- [Ari Dwi Setyawan]/ 1202200194 / Programmer
+- [Ari Dwi Setyawan](https://www.linkedin.com/in/setyawanaridwi/)/ 1202200194 / Programmer
 - [Nur Afni] / 1202204046 / Programmer
 - [Fikri Haykal] / 1202200030 / Programmer
 - [Rifqi Fadhli Ady Putra] / 1202200266 / Programmer
